@@ -1,0 +1,26 @@
+            pipeline{
+            agent any
+            tools {
+            maven 'maven_path'
+            jdk 'java_jdk'
+            }
+            stages{
+            stage('clone repo'){
+            steps{
+            bat 'git init'
+bat 'git pull https://github.com/shameemabanu/new_pipeline.git'
+bat 'mvn clean'
+} }
+stage('Test'){
+steps{
+bat 'mvn test   '
+}  }
+  stage('Deploy')
+{
+steps{
+bat 'mvn package  '
+} } }
+post {
+always {
+junit '**/surefire-reports/*.xml'
+  }   }  }

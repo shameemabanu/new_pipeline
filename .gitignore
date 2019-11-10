@@ -1,0 +1,7 @@
+*.class
+.idea/
+build
+dbmd.jar
+dbmd.iml
+target
+sample/ojdbc*.jar

@@ -1,0 +1,28 @@
+jDBMD: provides a simple java library for fetching database metadata information, and reading and writing it as XML.
+
+As a Java Library: 
+==================
+  The dbmd.jar archive may be used as a simple Java library for fetching metadata information for a database schema.  Use class gov.fda.nctr.dbmd.DatabaseMetadataFetcher to fetch metadata information about tables, views, fields and foreign keys in a given schema.  Class DBMD represents the metadata itself and supports reading and writing to and from xml.
+
+
+Requests, suggestions and comments are welcome.  Send to gmail user steveOfAR.
+
+
+As a Standalone Program
+=======================
+The DatabaseMetadataFetcher class includes a main method which can write database metadata as xml to an output file. To do this, first create a properties file describing the database connnection information, with properties:
+jdbc-connect-url, jdbc-driver-class, user, and password.
+
+For example,
+#file connection.props
+jdbc-connect-url=jdbc:oracle:thin:myhost.mydomain.org:1528:mysid
+jdbc-driver-class=oracle.jdbc.OracleDriver
+user=mydbuser
+password=mypassword
+
+
+Then invoke the command like this:
+
+  java -cp dbmd.jar:ojdbc6.jar gov.fda.nctr.dbmd.DatabaseMetadataFetcher myschema connection.props myschema.xml
+
+which would write the database metadata for schema myschema to file myschema.xml.

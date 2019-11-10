@@ -1,26 +1,33 @@
-            pipeline{
-            agent any
-            tools {
-            maven 'maven_path'
-            jdk 'java_jdk'
-            }
-            stages{
-            stage('clone repo'){
-            steps{
-            bat 'git init'
-bat 'git pull https://github.com/shameemabanu/new_pipeline.git'
-bat 'mvn clean'
-} }
-stage('Test'){
-steps{
-bat 'mvn test   '
-}  }
-  stage('Deploy')
-{
-steps{
-bat 'mvn package  '
-} } }
-post {
-always {
-junit '**/surefire-reports/*.xml'
-  }   }  }
+pipline {
+any agent
+stages {
+stage ('Compile Stage'){
+agent {
+label "master"
+}
+steps {
+echo 'execute this stage first'
+}
+}
+stage ('running Stage') {
+parallel {
+stage ('run'){
+agent {
+label "window_node"
+}
+steps {
+echo "task on agent"
+}
+}
+stage ('Testing Stage') {
+agent {
+label "master"
+}
+}
+steps {
+echo "task on master"
+}
+}
+}
+}
+}

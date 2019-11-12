@@ -3,6 +3,7 @@
      stage('checkout')
      {
 checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/shameemabanu/new_pipeline.git']]])
+workspace=pwd()
      }
 stage('static code analysis')
 {

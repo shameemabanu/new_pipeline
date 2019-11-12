@@ -1,26 +1,24 @@
-            pipeline{
-            agent any
-            tools {
-            maven 'maven_path'
-            jdk 'java_jdk'
-            }
-            stages{
-            stage('clone repo'){
-            steps{
-            bat 'git init'
-bat 'git pull https://github.com/shameemabanu/new_pipeline.git'
-bat 'mvn clean'
-} }
-stage('Test'){
-steps{
-bat 'mvn test   '
-}  }
-  stage('Deploy')
+     def workspace;
+     node {
+     stage('checkout')
+     {
+checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/shameemabanu/new_pipeline.git']]])
+     }
+stage('static code analysis')
 {
-steps{
-bat 'mvn package  '
-} } }
-post {
-always {
-junit '**/surefire-reports/*.xml'
-  }   }  }
+echo "static code analysis"
+}
+stage('build')
+{
+echo "build the code"
+}
+stage('unit test')
+{
+echo "unit testing"
+}
+stage('delivery')
+{
+echo "delevering"
+}
+}
+
